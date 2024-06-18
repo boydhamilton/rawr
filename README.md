@@ -11,7 +11,7 @@ Example program:
 int main(int argc, char* argv[]){
   const int width = 128*4, height = 128*4; // window size
 
-    if( rawr_initdraw(width, height, "fqqsadasd") != 0)
+    if( rawr_initdraw(width, height, "rawr Demo") != 0)
         return 0;
 
     rawr_setzerocol(46,41,78); // set the colour of pixels in the high state
