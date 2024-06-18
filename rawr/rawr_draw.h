@@ -5,8 +5,8 @@
 
 #include<SDL2/SDL.h>
 
-#define _H 32
-#define _W 32
+#define _H 64
+#define _W 64
 // W MUST BE 2^N SUCH THAT N>=3
 
 
