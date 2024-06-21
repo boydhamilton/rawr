@@ -2,7 +2,21 @@
     "files.associations": {
         "sdl.h": "c",
         "rawr_shapes.h": "c",
-        "rawr_update.h": "c"
+        "rawr_update.h": "c",
+        "cctype": "c",
+        "cmath": "c",
+        "cstdarg": "c",
+        "cstdint": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "cwchar": "c",
+        "cwctype": "c",
+        "exception": "c",
+        "type_traits": "c",
+        "limits": "c",
+        "*.tcc": "c",
+        "cinttypes": "c",
+        "typeinfo": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "disabled"
 }

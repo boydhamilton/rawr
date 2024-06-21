@@ -16,7 +16,6 @@ typedef unsigned char byte;
 
 extern byte rawr_keys[6];
 extern byte rawr_quit;
-extern byte rawr_runupdate;
 
 extern byte rawr_continuouslysweepforcontroller;
 

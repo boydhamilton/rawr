@@ -47,6 +47,7 @@ render texture at scale onto window
 
 optimize for space:
     bitshifting pixelmatrix to get 8 mutable bits per byte - DONE
+    explanation in header
 
 optimize for time:
     identify adjacent groups of pixels then draw rectangles instead of individual pixels in drawcall
@@ -99,15 +100,18 @@ int rawr_initdraw(int width, int height, char* title){
     rawr_window = SDL_CreateWindow(
         title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,windowwidth,windowheight,SDL_WINDOW_SHOWN);
 
+    if(!rawr_window)
+        return 2;
+
     rawr_renderer = SDL_CreateRenderer(rawr_window,-1, SDL_RENDERER_ACCELERATED);
 
-    if(!rawr_window || !rawr_renderer)
-        return 2;
+    if(!rawr_renderer)
+        return 3;
 
     rawr_inittarget(rawr_renderer);
 
     if(!rawr_target)
-        return 3;
+        return 4;
 
 
     return 0;
@@ -126,14 +130,17 @@ byte rawr_getpixel(byte x, byte y){
 }
 
 void rawr_setpixel(byte x, byte y, byte b){
-
+    // decided that disappearing is better than wraparound
+    // i lied wraparound better than disappearing, more predictable behaviour with shape drawing
     byte _x = x% _W;
     byte _y = y% _H;
+    // if(x > _W || x<0 || y>_H || y<0)
+    //     return;
 
     // int index = (int)x/8;
     // int offset = _x%8;
     // byte mask = b << offset;
-    rawr_pixelmatrix[_y][x/8] |= (b << (_x%8) );
+    rawr_pixelmatrix[_y][_x/8] |= (b << (_x%8) );
     
     cpixeldata[cpixels][0] = _x;
     cpixeldata[cpixels][1] = _y;
@@ -220,5 +227,5 @@ void rawr_draw(){
     long long f = tms();
     int elapsed = (int)(f - i);
     int await = (int)(delta-elapsed);
-    Sleep( (await>0) ? await : 0);
+    SDL_Delay( (await>0) ? await : 0);
 }

@@ -2,43 +2,53 @@
 // std
 #include<stdio.h>
 #include<time.h>
+#include<math.h>
 
 // rawr
 #include"rawr/rawr.h"
 
 
+
 int main(int argc, char* argv[]){
+
+    srand(time(NULL));
 
     const int width = 128*4, height = 128*4; // window size
 
-    if( rawr_initdraw(width, height, "fqqsadasd") != 0)
-        return 0;
+    if(rawr_initdraw(width, height, "rawr") != 0)
+        return 1;
 
-    rawr_setzerocol(46,41,78);
-    rawr_setonecol(255,212,0);
+    rawr_setzerocol(26, 0, 143);
+    rawr_setonecol(19, 55, 156);
 
-    dword frames = 0;
-    
-    int x =4,y=4;
+    int px = 32, py = 32;
+    int r = 6;
 
-    while(rawr_runupdate && !rawr_quit){
+    while(!rawr_quit){
+
+    // init
         rawr_clearmatrixto(0x0);
         rawr_updateevents();
 
+    // update
         if(rawr_getkeystate(0))
-            y--;
+            py--;
         else if(rawr_getkeystate(1))
-            y++;
+            py++;
         if(rawr_getkeystate(2))
-            x++;
+            px++;
         else if(rawr_getkeystate(3))
-            x--;
+            px--;
+        if(rawr_getkeystate(4))
+            r++;
+        else if(rawr_getkeystate(5))
+            r--;
 
-        rawr_drawrect(x,y,x+4,y+4,0x1);
-        
+    // drawr
+        rawr_drawcirclefilled(px, py, r, 0x1);
+
+
         rawr_draw();
-
-        frames++;
     }
 
     rawr_free();
