@@ -15,38 +15,36 @@ int main(int argc, char* argv[]){
 
     const int width = 128*4, height = 128*4; // window size
 
-    if(rawr_initdraw(width, height, "rawr") != 0)
+    if(rawr_initdraw(width, height, "RARARWRRWRWR") != 0)
         return 1;
+
+    rawr_setlightingenv();
 
     rawr_setzerocol(26, 0, 143);
     rawr_setonecol(19, 55, 156);
 
-    int px = 32, py = 32;
-    int r = 6;
+    byte x = 32, y=32;
 
     while(!rawr_quit){
-
-    // init
         rawr_clearmatrixto(0x0);
         rawr_updateevents();
 
-    // update
+        rawr_setlightingenv();
+
+        
+
         if(rawr_getkeystate(0))
-            py--;
+            y--;
         else if(rawr_getkeystate(1))
-            py++;
+            y++;
         if(rawr_getkeystate(2))
-            px++;
+            x++;
         else if(rawr_getkeystate(3))
-            px--;
-        if(rawr_getkeystate(4))
-            r++;
-        else if(rawr_getkeystate(5))
-            r--;
+            x--;
 
-    // drawr
-        rawr_drawcirclefilled(px, py, r, 0x1);
+        rawr_drawline(32,32,48,48,0x1);
 
+        rawr_pointlight(x, y, 8, 0x1, 0x1);
 
         rawr_draw();
     }

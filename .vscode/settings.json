@@ -16,7 +16,8 @@
         "limits": "c",
         "*.tcc": "c",
         "cinttypes": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "rawr_light.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "disabled"
 }

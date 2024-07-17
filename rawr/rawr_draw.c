@@ -88,6 +88,8 @@ static void rawr_inittarget(SDL_Renderer* r){
 /*
 window should be square and in increments of powers of two, max out at 64.
 8x8, 16x16, 32x32, 64x64
+
+now: is hardset 64x64
 */
 int rawr_initdraw(int width, int height, char* title){
 
@@ -137,10 +139,11 @@ void rawr_setpixel(byte x, byte y, byte b){
     // if(x > _W || x<0 || y>_H || y<0)
     //     return;
 
+    // dont need allat variable allocation but good for readability so its more clear? idek
     // int index = (int)x/8;
     // int offset = _x%8;
     // byte mask = b << offset;
-    rawr_pixelmatrix[_y][_x/8] |= (b << (_x%8) );
+    rawr_pixelmatrix[_y][_x/8] |= ( (b & 0x1) << (_x%8) );
     
     cpixeldata[cpixels][0] = _x;
     cpixeldata[cpixels][1] = _y;
@@ -188,7 +191,7 @@ void rawr_clearmatrixto(byte b){
     SDL_SetRenderTarget(r, NULL);
 }
 
-void rawr_drawtorawr(){
+static void rawr_drawtorawr(){
 
     SDL_Renderer* r = rawr_renderer;
 

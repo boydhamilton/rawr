@@ -3,10 +3,10 @@
 #ifndef RAWR_SHAPESH_
 #define RAWR_SHAPESH_
 
+#define PI_VIA_RAWR 3.14159265359
+
 /*
 draw line, approximate a line across the screen matrix between two points
-note: rawr's handling of pixels drawn to the screen, not setting those that are off the visible plane, leads to 
-unusual behaviour with lines that extend off the screen
 */
 void rawr_drawline(byte x1, byte y1,byte x2, byte y2, byte b);
 
@@ -27,5 +27,15 @@ void rawr_drawcirclefilled(byte xc, byte yc, byte r, byte b);
 draw rectangle
 */
 void rawr_drawrect(byte x, byte y, byte w, byte h, byte b);
+
+/*
+draw an arc from startangle to endangle
+*/
+void rawr_drawarc(byte xc, byte yc, byte r, float startangle, float endangle, byte b);
+
+/*
+draw polygon from points
+*/
+void rawr_drawpolygon(byte** points, byte amntpoints, byte b);
 
 #endif

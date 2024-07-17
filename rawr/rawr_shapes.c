@@ -1,10 +1,16 @@
 
 
 #include<stdlib.h>
+#include<stdio.h>
+
 #include<math.h>
 
 #ifndef RAWR_DRAWH_
 #include"rawr_draw.h"
+#endif
+
+#ifndef RAWR_SHAPESH_
+#include"rawr_shapes.h"
 #endif
 
 // implementation of raster shape algorithms for rawr
@@ -18,16 +24,12 @@ void rawr_drawline(byte x1, byte y1,byte x2, byte y2, byte b){
     float xinc = (float)dx / (float)stepsreq, yinc = (float)dy / (float)stepsreq; // bomboclatt get incrememtn per step
     
     float x=x1, y=y1;
-    float xe=x2, ye=y2;
 
-    for(int i=0; i<=stepsreq/2; i++){ // work from both ends
+    for(int i=0; i<=stepsreq; i++){
         rawr_setpixel((int)x, (int)y, b);
-        rawr_setpixel((int)xe, (int)ye, b);
 
         x+=xinc;
         y+=yinc;
-        xe-=xinc;
-        ye-=yinc;
     }
 }
 
@@ -37,7 +39,7 @@ void rawr_drawcircle(byte xc, byte yc, byte r, byte b){
         return;
     
     int x = r, y=0;
-    int p = 1-r;
+    int p = 1-r; // decision over
 
     rawr_setpixel(xc+r,yc,b);
     rawr_setpixel(xc-r,yc,b);
@@ -47,10 +49,10 @@ void rawr_drawcircle(byte xc, byte yc, byte r, byte b){
     while(x>y){
         y++;
         if(p<=0){ // magic determination formula derived from the classic x^2 + y^2 = r^2
-            p = p+ 2*y + 1;
+            p = p+ (y<<1) + 1; // x * n | n base 2 is for losers
         }else{
             x--;
-            p = p + 2*y - 2*x + 1;
+            p = p + (y<<1) - (x<<1) + 1;
         }
 
         if(x<y)
@@ -70,16 +72,17 @@ void rawr_drawcircle(byte xc, byte yc, byte r, byte b){
 
 
 void rawr_drawcirclefilled(byte xc, byte yc, byte r, byte b){
-    if(r<0)
-        return;
-
-    // s/o my stack overflow for the algorithm i <3 you for not using sqrt
+    if(r>32) // dont need more than that!
+        r = 32;
+    else if(r<1)
+        r = 1;
 
     r++; // has irregularities with the <= equality, so am just doing <, which gives a smooth circle, and adding one to radius
     
-    int r2 = r * r; 
-    int area = r2 << 2; // psychotic bitshift estimation for 4*r^2 to give bounding box area
-    int rr = r << 1; // width/ height of bb
+    int r2 = r * r;
+    int area = r2 << 2; // bitshifting multiplies by 2 for each step, r2 << 2 = r2 * 4 and is faster
+    int rr = r << 1; // width of bounding square
+    float circumf = (r<<1) * PI_VIA_RAWR;
 
     int tx, ty; // test point
 
@@ -87,10 +90,44 @@ void rawr_drawcirclefilled(byte xc, byte yc, byte r, byte b){
         tx = (i % rr) - r; // collumn
         ty = (i / rr) - r; // row
 
-        if (tx * tx + ty * ty < r2) // x^2 + y^2 = r^2 check
+        // TODO: could find a from both ends approach
+
+        if(rawr_getpixel(xc + tx, yc + ty)!=b && tx * tx + ty * ty < r2) // x^2 + y^2 = r^2 check
             rawr_setpixel(xc + tx, yc + ty, b);
     }
    
+}
+
+void rawr_drawarc(byte xc, byte yc, byte r, float startangle, float endangle, byte b){
+
+    // zero research done. absolutely atrocious but its not serious
+
+    float step = 1/((endangle-startangle) * r);
+    step=step*1.75; // huge estimations per step, need to find an actual expression to calculate the number required but this works well for now
+    // printf("%f\n",endangle/step);
+    float x=xc, y=0;
+    float xp=0, yp=0;
+    float dxdy;
+
+    for(float i=startangle; i<endangle; i+=step){
+        x = (float)xc + (r * cos(i)); // TODO: absolute "sin" to be using trig functions. need to fix
+        y = (float)yc - (r * sin(i));            
+            
+        rawr_setpixel((byte)roundf(x), (byte)roundf(y), b);
+    }
+}
+
+void rawr_drawpolygon(byte** points, byte amntpoints, byte b){
+    // each point is [x,y]
+    byte px, py;
+    byte p_px = points[amntpoints-1][0], p_py = points[amntpoints-1][1];
+    for(int i=0; i<amntpoints; i++){
+        px = points[i][0];
+        py = points[i][1];
+        rawr_drawline(p_px, p_py, px, py, b);
+        p_px = px;
+        p_py = py;
+    }
 }
 
 void rawr_drawrect(byte x, byte y, byte w, byte h, byte b){

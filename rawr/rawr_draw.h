@@ -13,10 +13,10 @@
 typedef unsigned char byte;
 typedef unsigned int dword;
 
-extern SDL_Texture* rawr_target;
+// extern SDL_Texture* rawr_target;
 
-extern SDL_Window* rawr_window;
-extern SDL_Renderer* rawr_renderer;
+// extern SDL_Window* rawr_window;
+// extern SDL_Renderer* rawr_renderer;
 
 
 /*
@@ -86,11 +86,6 @@ byte* rawr_getzerocol();
 set all pixels in the matrix to specified state
 */
 void rawr_clearmatrixto(byte b);
-
-/*
-rawr fast drawing method
-*/
-void rawr_drawtorawr();
 
 /*
 draw call, to be called in main
