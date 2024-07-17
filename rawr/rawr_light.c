@@ -32,7 +32,6 @@ static int losfrompoint(byte xo, byte yo, byte xp, byte yp, byte b_coll){
 
         byte p = rawr_getpixel((byte)x, (byte)y);
         byte lm = lightmap[(byte)y][(byte)x];
-
         //printf("%d %d %d %d\n",p, (byte)x, (byte)y, lm);
 
         if(p==b_coll && !lm){
