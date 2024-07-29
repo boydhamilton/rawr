@@ -10,6 +10,12 @@ draw line, approximate a line across the screen matrix between two points
 */
 void rawr_drawline(byte x1, byte y1,byte x2, byte y2, byte b);
 
+
+/*
+draw line, approximated using only the 4 cardinal directions
+*/
+void rawr_drawlinecardinal(byte x1, byte y1, byte x2, byte y2, byte b);
+
 /*
 draw circle, approximate an unfilled circle with given radius on screen matrix
 coordinates are for the centre of the circle
@@ -37,5 +43,8 @@ void rawr_drawarc(byte xc, byte yc, byte r, float startangle, float endangle, by
 draw polygon from points
 */
 void rawr_drawpolygon(byte** points, byte amntpoints, byte b);
+
+
+void rawr_drawrectfilled(byte x, byte y, byte w, byte h, byte b);
 
 #endif

@@ -28,8 +28,36 @@ void rawr_drawline(byte x1, byte y1,byte x2, byte y2, byte b){
     for(int i=0; i<=stepsreq; i++){
         rawr_setpixel((int)x, (int)y, b);
 
+        // find if diagonal, then check pixel adjacent
+
         x+=xinc;
         y+=yinc;
+    }
+}
+
+void rawr_drawlinecardinal(byte x1, byte y1, byte x2, byte y2, byte b){
+    int x = x1, y = y1;
+    int dx = abs(x2 - x), dy = abs(y2 - y);
+    int xinc = (x1 < x2) ? 1 : -1, 
+        yinc = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while(x!=x2 && y!=y2){
+
+        rawr_setpixel(x, y, b);
+
+        int errdoubled = err << 1;
+        if(errdoubled > -dy){
+            err -= dy;
+            x += xinc;
+        }
+        if(errdoubled < dx){
+            err += dx;
+            y += yinc;
+        }
+        if(errdoubled > -dy && errdoubled < dx){
+            rawr_setpixel(x-xinc, y, b);
+        }
     }
 }
 
@@ -98,6 +126,7 @@ void rawr_drawcirclefilled(byte xc, byte yc, byte r, byte b){
    
 }
 
+// TODO: USE MIDPOINT SOMEHOW
 void rawr_drawarc(byte xc, byte yc, byte r, float startangle, float endangle, byte b){
 
     // zero research done. absolutely atrocious but its not serious
@@ -135,4 +164,11 @@ void rawr_drawrect(byte x, byte y, byte w, byte h, byte b){
     rawr_drawline(x,y+h,x+w,y+h, b);
     rawr_drawline(x,y,x,y+h, b);
     rawr_drawline(x+w,y,x+w,y+h, b);
+}
+
+void rawr_drawrectfilled(byte x, byte y, byte w, byte h, byte b){
+    for(int i=0; i<h; i++)
+        for(int j=0; j<w; j++){
+            rawr_setpixel(x+j, y+i, b);
+        }
 }

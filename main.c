@@ -31,8 +31,6 @@ int main(int argc, char* argv[]){
 
         rawr_setlightingenv();
 
-        
-
         if(rawr_getkeystate(0))
             y--;
         else if(rawr_getkeystate(1))
@@ -42,9 +40,10 @@ int main(int argc, char* argv[]){
         else if(rawr_getkeystate(3))
             x--;
 
-        rawr_drawline(32,32,48,48,0x1);
+        rawr_drawline(4,5,17,31,0x1);
+        rawr_drawarc(48, 16, 10, PI_VIA_RAWR/4, 4 * PI_VIA_RAWR / 3, 0x1);
 
-        rawr_pointlight(x, y, 8, 0x1, 0x1);
+        rawr_pointlight(x, y, 12, 0x1, 0x1);
 
         rawr_draw();
     }

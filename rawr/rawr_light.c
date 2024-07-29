@@ -20,7 +20,7 @@ static int ispointincircle(byte x, byte y, byte pxc, byte pxy, byte pr){
     return (x < pxc+pr && x > pxc-pr && y < pxy+pr && y < pxy-pr);
 }
 
-static int losfrompoint(byte xo, byte yo, byte xp, byte yp, byte b_coll){
+static int los(byte xo, byte yo, byte xp, byte yp, byte b_coll){
     int dx = xp - xo, dy = yp - yo;
     int stepsreq = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy); 
 
@@ -37,10 +37,45 @@ static int losfrompoint(byte xo, byte yo, byte xp, byte yp, byte b_coll){
         if(p==b_coll && !lm){
             return 0;
         }
+
+        
         x+=xinc;
         y+=yinc;
     }
     return 1;
+}
+
+static int betterlos(byte x1, byte y1, byte x2, byte y2, byte b_coll){
+    int x = x1, y = y1;
+    int dx = abs(x2 - x), dy = abs(y2 - y);
+    int xinc = (x1 < x2) ? 1 : -1, 
+        yinc = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while(x!=x2 && y!=y2){
+
+        if(rawr_getpixel((byte)x, (byte)y)==b_coll && !lightmap[(byte)y][(byte)x]){
+            return 0;
+        }
+        
+        int errdoubled = err << 1;
+
+        if(errdoubled > -dy && errdoubled < dx){
+            if(rawr_getpixel((byte)x-xinc, (byte)y)==b_coll && !lightmap[(byte)y][(byte)x-xinc]){
+                return 0;
+            }
+        }
+
+        if(errdoubled > -dy){
+            err -= dy;
+            x += xinc;
+        }
+        if(errdoubled < dx){
+            err += dx;
+            y += yinc;
+        }
+        
+    }
 }
 
 /* 
@@ -58,7 +93,6 @@ void rawr_pointlight(byte xc, byte yc, byte r, byte bi, byte bc){
     int r2 = r * r;
     int area = r2 << 2;
     int rr = r << 1;
-    float circumf = (r<<1) * PI_VIA_RAWR;
 
     int tx, ty; // test point
 
@@ -66,7 +100,7 @@ void rawr_pointlight(byte xc, byte yc, byte r, byte bi, byte bc){
         tx = (i % rr) - r;
         ty = (i / rr) - r;
 
-        if(rawr_getpixel(xc + tx, yc + ty)!=bi && tx * tx + ty * ty < r2 && losfrompoint(xc, yc, xc+tx, yc+ty, bc)){ // x^2 + y^2 = r^2 check
+        if(rawr_getpixel(xc + tx, yc + ty)!=bi && tx * tx + ty * ty < r2 && los(xc, yc, xc+tx, yc+ty, bc)){ // x^2 + y^2 = r^2 check
             rawr_setpixel(xc + tx, yc + ty, bi);
             lightmap[yc+ty][xc+tx] = 1;
         }
