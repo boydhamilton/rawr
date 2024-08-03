@@ -10,11 +10,7 @@
 #endif
 
 
-static byte lightmap[64][64];
-
-void rawr_setlightingenv(){
-    memset(lightmap, 0, sizeof(byte) * 4096);
-}
+static byte lightmap[64][64] = {0};
 
 static int ispointincircle(byte x, byte y, byte pxc, byte pxy, byte pr){
     return (x < pxc+pr && x > pxc-pr && y < pxy+pr && y < pxy-pr);

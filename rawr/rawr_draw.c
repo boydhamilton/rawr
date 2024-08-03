@@ -73,24 +73,6 @@ SDL_Window* rawr_window;
 SDL_Renderer* rawr_renderer;
 
 
-
-// unused, just assume user puts valid input
-// static byte rawr_isobit(byte b){
-//     return (byte)(b & 0x1);
-// }
-
-static void rawr_inittarget(SDL_Renderer* r){
-    cpixels = 0;
-    rawr_target = SDL_CreateTexture(r, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, _W, _H);
-}
-
-
-/*
-window should be square and in increments of powers of two, max out at 64.
-8x8, 16x16, 32x32, 64x64
-
-now: is hardset 64x64
-*/
 int rawr_initdraw(int width, int height, char* title){
 
     windowwidth = width;
@@ -109,12 +91,13 @@ int rawr_initdraw(int width, int height, char* title){
 
     if(!rawr_renderer)
         return 3;
-
-    rawr_inittarget(rawr_renderer);
+    
+    rawr_target = SDL_CreateTexture(rawr_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, _W, _H);
 
     if(!rawr_target)
         return 4;
 
+    cpixels = 0;
 
     return 0;
 }
