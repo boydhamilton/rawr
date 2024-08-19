@@ -162,7 +162,7 @@ void rawr_clearmatrixto(byte b){
 
     SDL_SetRenderTarget(r, rawr_target);
 
-    memset(rawr_pixelmatrix, (b) ? 255 : 0 ,_H*_W*sizeof(byte)); // 255 as to take up all bits
+    memset(rawr_pixelmatrix, (b) ? 255 : 0 , 512); // 255 as to take up all bits
 
     if(b)
         SDL_SetRenderDrawColor(r,rawr_onecol[0],rawr_onecol[1],rawr_onecol[2],SDL_ALPHA_OPAQUE);

@@ -3,8 +3,6 @@
 
 #include"rawr_update.h"
 
-#include<stdio.h>
-
 byte rawr_keys[6] = {0}; // init to 0
 
 byte rawr_quit = 0;
