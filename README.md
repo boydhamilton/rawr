@@ -8,8 +8,6 @@ The project is dependent on [SDL2](https://github.com/libsdl-org/SDL/releases/ta
 
 rawr makes it easy for a beginner in the C programming language to dive into game development with little prior experience. The functional design and flow of rawr makes it easy and intuitive to understand for programmers of all backgrounds. It is an excellent framework to learn either as a old-fashioned arcade developer or someone new to C programming and game development.
 
-![arc and fill demo](github/arcandcut.png) 
-![lighting demo](github/lighting.png)
 
 Some resources:
 <br>

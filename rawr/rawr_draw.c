@@ -122,10 +122,7 @@ void rawr_setpixel(byte x, byte y, byte b){
     // if(x > _W || x<0 || y>_H || y<0)
     //     return;
 
-    // dont need allat variable allocation but good for readability so its more clear? idek
-    // int index = (int)x/8;
-    // int offset = _x%8;
-    // byte mask = b << offset;
+    // dont need allat variable allocation
     rawr_pixelmatrix[_y][_x/8] |= ( (b & 0x1) << (_x%8) );
     
     cpixeldata[cpixels][0] = _x;

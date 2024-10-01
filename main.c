@@ -3,6 +3,7 @@
 // rawr
 #include"rawr/rawr.h"
 
+#include<stdio.h>
 
 int main(int argc, char* argv[]){
 
@@ -16,21 +17,10 @@ int main(int argc, char* argv[]){
 
     while(!rawr_quit){
         rawr_updateevents();
-        rawr_clearmatrixto(0x0);
         
-        if(rawr_getkeystate(0))
-            y--;
-        else if(rawr_getkeystate(1))
-            y++;
-        if(rawr_getkeystate(2))
-            x++;
-        else if(rawr_getkeystate(3))
-            x--;
+        rawr_setpixel(0,64,0x1);
 
-
-        rawr_drawrectfilled(32, 32, 16, 24, 0x1);
-        rawr_drawcirclefilled(32, 48, 5, 0x0);
-        rawr_drawarc(16, 16, 8, PI_VIA_RAWR/4, 3 * PI_VIA_RAWR/2, 0x1);
+        printf("%d\n", rawr_getpixel(0,63+1));
 
         rawr_draw();
     }
