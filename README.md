@@ -1,6 +1,6 @@
 
 
-# rawrlib
+# rawr
 
 rawr is a 1-bit game framework that uses a unique custom rendering engine to display pixelated graphics. The goal of rawr is for developers to challenge themselves to find creativity in limitation, an idea inspired by the fantasy console [PICO-8](https://www.lexaloffle.com/pico-8.php), and explore avenues they may not have considered with the wide array of modern game development tools available.
 
@@ -13,7 +13,8 @@ rawr makes it easy for a beginner in the C programming language to dive into gam
 https://github.com/user-attachments/assets/0cec47e6-0e87-4bc9-adf0-b7588086e0a5
 
 
-Some resources:
+<br>
+Some interesting resources for raster algorithms:
 <br>
 [Raster Algorithms for 2D Primitives - Da Silva, Brown University](https://cs.brown.edu/media/filer_public/88/9c/889c4b64-6979-4d31-a4fe-3904a681b978/dasilva.pdf)
 <br>
