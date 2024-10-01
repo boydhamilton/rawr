@@ -9,6 +9,10 @@ The project is dependent on [SDL2](https://github.com/libsdl-org/SDL/releases/ta
 rawr makes it easy for a beginner in the C programming language to dive into game development with little prior experience. The functional design and flow of rawr makes it easy and intuitive to understand for programmers of all backgrounds. It is an excellent framework to learn either as a old-fashioned arcade developer or someone new to C programming and game development.
 
 
+
+https://github.com/user-attachments/assets/0cec47e6-0e87-4bc9-adf0-b7588086e0a5
+
+
 Some resources:
 <br>
 [Raster Algorithms for 2D Primitives - Da Silva, Brown University](https://cs.brown.edu/media/filer_public/88/9c/889c4b64-6979-4d31-a4fe-3904a681b978/dasilva.pdf)
