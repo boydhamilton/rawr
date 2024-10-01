@@ -14,8 +14,9 @@ https://github.com/user-attachments/assets/0cec47e6-0e87-4bc9-adf0-b7588086e0a5
 
 
 <br>
-Some interesting resources for raster algorithms:
+Some interesting resources for rasterized display:
 <br>
+
 [Raster Algorithms for 2D Primitives - Da Silva, Brown University](https://cs.brown.edu/media/filer_public/88/9c/889c4b64-6979-4d31-a4fe-3904a681b978/dasilva.pdf)
 <br>
 [Curve Drawing for Raster Displays - Van Aken and Novak, Texas Instruments](https://dl.acm.org/doi/pdf/10.1145/282918.282943)
