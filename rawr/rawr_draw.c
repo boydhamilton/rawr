@@ -111,7 +111,11 @@ byte rawr_getpixel(byte x, byte y){
 
     // int index = x/8; // DONT NEED FLOOR FOR INT DIVISION, decimal part is just whisked away as it doesnt have decimal representation
     // int offset = x%8;
-    return (byte) (rawr_pixelmatrix[y][x/8] >> x%8) & 0x1;
+
+    byte _x = x % _W;
+    byte _y = y %_H;
+
+    return (byte) (rawr_pixelmatrix[_y][_x/8] >> _x%8) & 0x1;
 }
 
 void rawr_setpixel(byte x, byte y, byte b){
