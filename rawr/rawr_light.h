@@ -17,7 +17,8 @@
 #include"rawr_shapes.h"
 #endif
 
-void rawr_setlightingenv();
+extern byte lightmap[64][64];
+
 
 void rawr_pointlight(byte xc, byte yc, byte r, byte b_illum, byte b_coll);
 

@@ -1,31 +1,52 @@
 
+// std
+#include<stdio.h>
+#include<time.h>
+#include<math.h>
 
 // rawr
 #include"rawr/rawr.h"
 
-#include<stdio.h>
+
 
 int main(int argc, char* argv[]){
 
-    if(rawr_initdraw(640, 640, "rawr") != 0)
+
+    const int width = 128*4, height = 128*4; // window size
+
+    if(rawr_initdraw(width, height, "RARARWRRWRWR") != 0)
         return 1;
 
-    rawr_setzerocol(51, 51, 51);
-    rawr_setonecol(72, 229, 194);
+    rawr_setzerocol(26, 0, 143);
+    rawr_setonecol(19, 55, 156);
 
-    byte x = 9, y =9;
+    byte x = 32, y=32;
 
     while(!rawr_quit){
+        rawr_clearmatrixto(0x0);
         rawr_updateevents();
-        
-        rawr_setpixel(0,64,0x1);
 
-        printf("%d\n", rawr_getpixel(0,63+1));
+        
+        if(rawr_getkeystate(0))
+            y--;
+        else if(rawr_getkeystate(1))
+            y++;
+        if(rawr_getkeystate(2))
+            x++;
+        else if(rawr_getkeystate(3))
+            x--;
+
+        rawr_drawline(32,32,48,48,0x1);
+        rawr_drawline(4,5,17,31,0x1);
+        rawr_drawarc(48, 16, 10, PI_VIA_RAWR/4, 4 * PI_VIA_RAWR / 3, 0x1);
+
+        rawr_pointlight(x, y, 8, 0x1, 0x1);
+        rawr_pointlight(x, y, 12, 0x1, 0x1);
 
         rawr_draw();
     }
 
     rawr_free();
-    
+
     return 0;
 }
